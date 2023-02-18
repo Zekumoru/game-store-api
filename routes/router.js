@@ -20,6 +20,11 @@ const changeNavigationUrls = (data) => {
   }
 };
 
+const devLog = (string) => {
+  if (process.env.NODE_ENV === 'production') return;
+  console.log(string);
+};
+
 router.get('/games', async (req, res) => {
   try {
     const params = new URLSearchParams({
@@ -31,6 +36,7 @@ router.get('/games', async (req, res) => {
     const data = apiRes.data;
 
     changeNavigationUrls(data);
+    devLog(`REQUEST: ${API_BASE_URL}/games?${params}`);
 
     res.json(data);
   } catch (error) {
@@ -48,6 +54,8 @@ router.get('/games/:id', async (req, res) => {
     const apiRes = await axios.get(`${API_BASE_URL}/games/${gameId}`, {
       params,
     });
+
+    devLog(`REQUEST: ${API_BASE_URL}/games/${gameId}?${params}`);
 
     res.json(apiRes.data);
   } catch (error) {
@@ -69,6 +77,8 @@ router.get('/games/:id/screenshots', async (req, res) => {
       }
     );
 
+    devLog(`REQUEST: ${API_BASE_URL}/games/${gameId}/screenshots?${params}`);
+
     res.json(apiRes.data);
   } catch (error) {
     res.status(500).json(error);
@@ -86,6 +96,7 @@ router.get('/genres', async (req, res) => {
     const data = apiRes.data;
 
     changeNavigationUrls(data);
+    devLog(`REQUEST: ${API_BASE_URL}/genres?${params}`);
 
     res.json(data);
   } catch (error) {
