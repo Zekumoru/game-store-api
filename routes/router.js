@@ -38,6 +38,43 @@ router.get('/games', async (req, res) => {
   }
 });
 
+router.get('/games/:id', async (req, res) => {
+  try {
+    const gameId = req.params.id;
+    const params = new URLSearchParams({
+      [API_KEY_NAME]: API_KEY_VALUE,
+    });
+
+    const apiRes = await axios.get(`${API_BASE_URL}/games/${gameId}`, {
+      params,
+    });
+
+    res.json(apiRes.data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.get('/games/:id/screenshots', async (req, res) => {
+  try {
+    const gameId = req.params.id;
+    const params = new URLSearchParams({
+      [API_KEY_NAME]: API_KEY_VALUE,
+    });
+
+    const apiRes = await axios.get(
+      `${API_BASE_URL}/games/${gameId}/screenshots`,
+      {
+        params,
+      }
+    );
+
+    res.json(apiRes.data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.get('/genres', async (req, res) => {
   try {
     const params = new URLSearchParams({
