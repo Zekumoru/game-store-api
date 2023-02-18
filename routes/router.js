@@ -38,4 +38,22 @@ router.get('/games', async (req, res) => {
   }
 });
 
+router.get('/genres', async (req, res) => {
+  try {
+    const params = new URLSearchParams({
+      [API_KEY_NAME]: API_KEY_VALUE,
+      ...url.parse(req.url, true).query,
+    });
+
+    const apiRes = await axios.get(`${API_BASE_URL}/genres`, { params });
+    const data = apiRes.data;
+
+    changeNavigationUrls(data);
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 export default router;
