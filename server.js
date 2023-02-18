@@ -15,7 +15,7 @@ const corsOption = {
 };
 
 app.use(cache('2 hours'));
-app.use(cors(corsOption));
+app.use(cors());
 app.use('/game-store-api', router);
 
 app.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
