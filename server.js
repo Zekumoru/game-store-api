@@ -10,12 +10,12 @@ const app = express();
 const cache = apicache.middleware;
 
 const corsOption = {
-  origin: 'https://zekumoru.github.io/',
+  origin: 'https://zekumoru.github.io',
   optionsSuccessStatus: 200,
 };
 
-app.use(cache('2 hours'));
-app.use(cors());
+app.use(cache('1 day'));
+app.use(cors(corsOption));
 app.use('/game-store-api', router);
 
 app.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
